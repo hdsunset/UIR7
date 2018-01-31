@@ -1,0 +1,102 @@
+\begin{thebibliography}{10}
+\def\selectlanguageifdefined#1{
+\expandafter\ifx\csname date#1\endcsname\relax
+\else\language\csname l@#1\endcsname\fi}
+\ifx\undefined\url\def\url#1{{\small #1}}\else\fi
+\ifx\undefined\BibUrl\def\BibUrl#1{\url{#1}}\else\fi
+\ifx\undefined\BibAnnote\long\def\BibAnnote#1{}\else\fi
+\ifx\undefined\BibEmph\def\BibEmph#1{\emph{#1}}\else\fi
+
+\bibitem{henk_lambda}
+\selectlanguageifdefined{english}
+\BibEmph{Henk Barendregt, Erik Barendsen}. Introduction to 
+  {Lambda} {Calculus}. ---
+\newblock Revised edition, December 1998, March 2000. - 53 p.
+ 
+ \bibitem{barry_jay}
+\selectlanguageifdefined{english}
+\BibEmph{Barry Jay}. Pattern 
+  {Calculus}. --- University of Technology, Sydney.
+Faculty of Engineering and Information Technology
+School of Software.
+\newblock Broadway NSW , Australia, 2007. - 214 p.
+ 
+\bibitem{ibm_latex}
+\selectlanguageifdefined{english}
+\BibEmph{}. {Работа в LaTex. IBM}
+\BibUrl{https://ru.wikibooks.org/wiki/LaTeX/LaTeX}.
+
+\bibitem{lvovsky_2003}
+\selectlanguageifdefined{russian}
+\BibEmph{С. М. Львовский}. Набор и вёрстка в система {LaTeX}. ---
+\newblock изд.3. 2003. 448 – с.
+
+\bibitem{asp.net_core}
+\selectlanguageifdefined{english}
+\BibEmph{Daniel Roth, Rick Anderson, Shaun Luttin}. Introduction to {ASP.NET} {Core} 
+  with {Dynamically} {Typed} {Languages}. \BibUrl{
+  https://docs.microsoft.com/ru-ru/aspnet/core/}.
+
+
+\bibitem{rihter}
+\selectlanguageifdefined{russian}
+\BibEmph{Дж.Рихтер}.{CLR} via {C\_#. Программирование на платформе Microsoft.NET Framework 4.5 на языке C\_#}. ---
+\newblock изд. 4-е. – СПб.: Питер, 2013. – 896 с.
+
+\bibitem{heilsberg}
+\selectlanguageifdefined{russian}
+\BibEmph{А. Хейлсберг, М. Торгерсен, С. Вилтамут, П. Голд}.{Язык программирования C\_#. Классика Computers Science. 4-е изд.}. ---
+\newblock 4-е изд., 2011. –  784  с.
+
+
+
+
+
+\bibitem{freeman}
+\selectlanguageifdefined{english}
+\BibEmph{Adam Freeman}.  Pro ASP.NET MVC 5. ---
+\newblock publ. 5. 2013. 832 – с. 
+
+\bibitem{ud}
+\selectlanguageifdefined{russian}
+\BibEmph{А.В.Кузовкин, А.А.Цыганов,Б.А.Щукин} Управление Данными.
+\newblock Издательский центр "Академия", 2010. – 256 с. 
+
+\bibitem{nou}
+\selectlanguageifdefined{russian}
+\BibEmph{Национальный Открытый Университет «ИНТУИТ»}.  Преимущества UML. ---
+\newblock URL:
+\BibUrl{
+https://www.intuit.ru/studies/courses/1007/229/lecture/5952} (Дата обращения: 10.10.17) 
+
+\bibitem{craig_uml}
+\selectlanguageifdefined{english}
+\BibEmph{Craig Larman} Applying {UML} and {Patterns}: An Introduction to Object-Oriented Analysis and Design and Iterative Development. ---
+\newblock Addison Wesley Professional, October 20, 2004. – 736 p. 
+
+
+
+
+\bibitem{mcrsft}
+\selectlanguageifdefined{russian}
+\BibEmph{Пошаговое руководство. Программирование приложений Office (C# и Visual Basic)}.
+\newblock URL:
+\BibUrl{
+https://docs.microsoft.com/ru-ru/dotnet/csharp/programming-guide/interop/walkthrough-office-programming} (Дата обращения: 17.11.17) 
+
+
+\bibitem{handbook_cs}
+\selectlanguageifdefined{english}
+\newblock Handbook of Theoretical Computer Science. Volume B: Formal Models and Semantics ---
+\newblock  Elsevier, MIT Press, 1990. – 1264 p. 
+
+\bibitem{date_j}
+\selectlanguageifdefined{russian}
+\BibEmph{Дейт К. Дж}. Введение в системы баз данных/ 8-е издание. ---
+\newblock Издательский дом «Вильяме», 2005. – 1328 с.: ил.
+
+\bibitem{rozentals}
+\selectlanguageifdefined{english}
+\BibEmph{Rozentals N.} Mastering {TypeScript}. Build enterprise-ready, industrial strength web applications using TypeScript and leading JavaScript frameworks. --- Packt Publishing Ltd, Birmingham, UK. – 2015.
+
+\end{thebibliography}

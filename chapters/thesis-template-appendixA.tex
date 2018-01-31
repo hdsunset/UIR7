@@ -1,0 +1,500 @@
+\chapter*{Приложение 1. Листинги кода приложения}
+\addcontentsline{toc}{chapter}{Приложение 1. Листинги кода приложения}
+
+
+\begin{verbatim}
+Класс DataImport
+\end{verbatim}
+
+\begin{lstlisting}
+namespace WordReport
+{
+using System;
+
+using System.Collections.Generic;
+
+using System.ComponentModel;
+
+using System.Data;
+
+using System.Drawing;
+
+using System.Linq;
+
+using System.Text;
+
+using System.Threading.Tasks;
+
+using System.Windows.Forms;
+
+using Excel = Microsoft.Office.Interop.Excel;
+
+using Word = Microsoft.Office.Interop.Word; 
+Microsoft.Office.Interop.Word.Application app = new Microsoft.Office.Interop.Word.Application();
+
+ OpenFileDialog ofd = new OpenFileDialog();
+
+private void button2_Click(object sender, EventArgs e)
+
+{
+
+ofd.Filter = "XLSM| *.xlsm";
+
+if (ofd.ShowDialog() == DialogResult.OK)
+
+{
+
+textBox1.Text = ofd.FileName;
+
+textBox2.Text = ofd.SafeFileName;
+
+}
+
+} 
+
+ private string[] readExcel(int index)
+
+{
+
+string res = textBox1.Text;
+
+Excel.Application xlApp;
+
+Excel.Workbook xlWorkBook;
+
+Excel.Worksheet xlWorkSheet;
+
+xlApp = new Excel.Application();
+
+xlWorkBook = xlApp.Workbooks.Open(res, 0, true, 5, "", "", true);
+
+xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
+
+index += 2;
+
+string[] data = new string[13];
+
+data[0] = xlWorkSheet.get_Range("BA" + index.ToString()).Text;
+
+data[1] = xlWorkSheet.get_Range("AP" + index.ToString()).Text;
+
+data[2] = xlWorkSheet.get_Range("AR" + index.ToString()).Text;
+
+data[3] = xlWorkSheet.get_Range("D" + index.ToString()).Text;
+
+data[4] = xlWorkSheet.get_Range("C" + index.ToString()).Text;
+
+data[5] = xlWorkSheet.get_Range("AD" + index.ToString()).Text;
+
+data[6] = xlWorkSheet.get_Range("AB" + index.ToString()).Text;
+
+data[7] = xlWorkSheet.get_Range("AC" + index.ToString()).Text;
+
+data[8] = xlWorkSheet.get_Range("F" + index.ToString()).Text;
+
+data[9] = xlWorkSheet.get_Range("K" + index.ToString()).Text;
+
+data[10] = xlWorkSheet.get_Range("BH" + index.ToString()).Text;
+
+data[11] = xlWorkSheet.get_Range("BK" + index.ToString()).Text;
+
+data[12] = xlWorkSheet.get_Range("AH" + index.ToString()).Text;
+
+xlWorkBook.Close(false);
+
+xlApp.Quit();
+
+System.Runtime.InteropServices.Marshal.ReleaseComObject(xlWorkSheet);
+
+System.Runtime.InteropServices.Marshal.ReleaseComObject(xlWorkBook);
+
+System.Runtime.InteropServices.Marshal.ReleaseComObject(xlApp);
+
+return data;
+
+} 
+\end{lstlisting}
+
+\begin{verbatim}
+Класс DataExport
+\end{verbatim}
+
+
+\begin{lstlisting}
+namespace WordReport
+{
+using System;
+
+using System.Collections.Generic;
+
+using System.ComponentModel;
+
+using System.Data;
+
+using System.Drawing;
+
+using System.Linq;
+
+using System.Text;
+
+using System.Threading.Tasks;
+
+using System.Windows.Forms;
+
+using Excel = Microsoft.Office.Interop.Excel;
+
+using Word = Microsoft.Office.Interop.Word; 
+Microsoft.Office.Interop.Word.Application app = new Microsoft.Office.Interop.Word.Application();
+
+Microsoft.Office.Interop.Word.Document doc = null;
+
+object fileName = "E:\\UIR 2017-2018\\Material\\protocol_extract.doc";
+
+object missing = Type.Missing;
+
+for(int i =2; i<7; i++)
+
+{
+
+doc = app.Documents.Open(fileName, missing, missing);
+
+app.Selection.Find.ClearFormatting();
+
+app.Selection.Find.Replacement.ClearFormatting();
+
+// read excel file
+
+string[] tmp = new string[4];
+
+tmp = readExcel(i);
+
+// fill data to template
+
+app.Selection.Find.Execute("<date>", missing, missing, missing, missing, missing, missing, missing, missing, tmp[0], 2);
+
+app.Selection.Find.Execute("<spec_numb>", missing, missing, missing, missing, missing, missing, missing, missing, tmp[1], 2);
+
+app.Selection.Find.Execute("<spec_nazv>", missing, missing, missing, missing, missing, missing, missing, missing, tmp[2], 2);
+
+app.Selection.Find.Execute("<name RP>", missing, missing, missing, missing, missing, missing, missing, missing, tmp[3],2);
+
+app.Selection.Find.Execute("<name IP>", missing, missing, missing, missing, missing, missing, missing, missing, tmp[4],2);
+
+app.Selection.Find.Execute("<mark>", missing, missing, missing, missing, missing, missing, missing, missing, tmp[5],2);
+
+app.Selection.Find.Execute("<letter>", missing, missing, missing, missing, missing, missing, missing, missing, tmp[6],2);
+
+app.Selection.Find.Execute("<number>", missing, missing, missing, missing, missing, missing, missing, missing, tmp[7], 2);
+
+app.Selection.Find.Execute("<name DP>", missing, missing, missing, missing, missing, missing, missing, missing, tmp[8], 2);
+
+app.Selection.Find.Execute("<obrazov>", missing, missing, missing, missing, missing, missing, missing, missing, tmp[9], 2);
+
+app.Selection.Find.Execute("<otlichie>", missing, missing, missing, missing, missing, missing, missing, missing, tmp[10], 2);
+
+app.Selection.Find.Execute("<text_postup>", missing, missing, missing, missing, missing, missing, missing, missing, tmp[11], 2);
+
+app.Selection.Find.Execute("<recenzent>", missing, missing, missing, missing, missing, missing, missing, missing, tmp[12], 2);
+
+// save new file as report
+
+object SaveAsFile = (object)"E:\\reports\\Report" + tmp[4] + ".doc";
+
+doc.SaveAs2(SaveAsFile, missing, missing, missing);
+
+}
+
+MessageBox.Show("Files are created");
+
+doc.Close(false, missing, missing);
+
+app.Quit(false, false, false);
+
+System.Runtime.InteropServices.Marshal.ReleaseComObject(app);
+
+} 
+\end{lstlisting}
+
+
+\begin{verbatim}
+Класс Case
+\end{verbatim}
+
+\begin{lstlisting}
+using System;
+
+namespace Morpher.Russian
+{
+    public class Case : ICase <IParadigm>
+    {
+        private readonly Func <IParadigm, string> func;
+
+        Case (Func <IParadigm, string> func)
+        {
+            this.func = func;
+        }
+
+        public string Get (IParadigm paradigm)
+        {
+            return func (paradigm);
+        }
+
+        public static Case Nominative    = new Case (p => p.Nominative   );
+        public static Case Genitive      = new Case (p => p.Genitive     );
+        public static Case Dative        = new Case (p => p.Dative       );
+        public static Case Accusative    = new Case (p => p.Accusative   );
+        public static Case Instrumental  = new Case (p => p.Instrumental );
+        public static Case Prepositional = new Case (p => p.Prepositional);
+        public static Case Locative      = new Case (p => p.Locative     );
+    }
+}
+}
+\end{lstlisting}
+
+\begin{verbatim}
+Класс IParadigm
+\end{verbatim}
+
+\begin{lstlisting}
+namespace Morpher.Russian
+{
+    /// <summary xml:lang="en">
+    /// </summary>
+    /// <summary xml:lang="ru">
+    /// Представляет русскую падежную парадигму (набор падежных форм), где каждая форма представлена строковым свойством.
+    /// </summary>
+    public interface IParadigm : ISlavicParadigm
+    {
+        string Locative {get;}
+    }
+}
+\end{lstlisting}
+
+\begin{verbatim}
+Класс FullParadigm
+\end{verbatim}
+
+\begin{lstlisting}
+using System;
+using Morpher.WebService.V2.MorpherWebService;
+
+namespace Morpher.Russian
+{
+    class Parse : Paradigm, IParse
+    {
+        private readonly GetXmlResult result;
+
+        public Parse (GetXmlResult result, string lemma) : base (lemma)
+        {
+            this.result = result;
+        }
+
+        Gender IParse.Gender
+        {
+            get 
+            {
+                switch (result.род)
+                {
+                    case "Мужской": return Gender.Masculine;      
+                    case "Женский": return Gender.Feminine;      
+                    case "Средний": return Gender.Neuter;      
+                    case "": return Gender.Plural;      
+                } 
+
+                throw new ApplicationException("Веб-сервис вернул неожиданное значение рода: " + result.род);
+            }
+        }
+
+        IParadigm IParse.Plural
+        {
+            get { throw new NotImplementedException (); }
+        }
+
+        protected override Forms Forms
+        {
+            get { return result; }
+        }
+
+        protected override string Locative
+        {
+            get { return result.где; }
+        }
+
+        bool IParse.IsAnimate
+        {
+            get { throw new NotImplementedException (); }
+        }
+
+        string IParse.Paucal
+        {
+            get { throw new NotImplementedException (); }
+        }
+    }
+}
+\end{lstlisting}
+
+\begin{verbatim}
+Класс MorpherFunctionPack
+\end{verbatim}
+
+\begin{lstlisting}
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using Morpher.Generic;
+using Morpher.Russian;
+
+namespace EasyDox
+{
+    using System.Linq;
+    using System.Text;
+
+    /// <summary>
+    /// Предоставляет функции склонения по падежам и прописи денежных сумм на русском языке.
+    /// </summary>
+    public class MorpherFunctionPack
+    {
+        private readonly IDeclension declension;
+        private readonly INumberSpelling numberSpelling;
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="MorpherFunctionPack"/>.
+        /// </summary>
+        public MorpherFunctionPack (IDeclension declension, INumberSpelling numberSpelling)
+        {
+            this.declension = declension;
+            this.numberSpelling = numberSpelling;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Dictionary <string, Delegate> Functions => new Dictionary <string, Delegate>
+        {
+            {"родительный", new Func<string, string>(Родительный)},
+            {"цифрами и прописью", new Func<string, string> (Пропись)},
+            {"фамилия и. о.", new Func<string, string> (ФамилияИнициалы)},
+        };
+
+        /// <summary>
+        /// Сокращает ФИО до Фамилия И. О.
+        /// </summary>
+        /// <param name="fieldValue">ФИО</param>
+        /// <returns>Фамилия И. О.</returns>
+        public static string ФамилияИнициалы (string fieldValue)
+        {
+            if (string.IsNullOrWhiteSpace(fieldValue))
+            {
+                throw new ArgumentException("String is null or white space", nameof(fieldValue));
+            }
+
+            var parts = fieldValue.Split (" .".ToCharArray (), StringSplitOptions.RemoveEmptyEntries).ToList();
+            if (parts.Count == 0)
+            {
+                throw new ArgumentException("Нет частей ФИО");
+            }
+
+            if (parts[0].ToLowerInvariant() == "ип")
+            {
+                parts.RemoveAt(0);
+            }
+
+            if (parts.Count == 0)
+            {
+                throw new ArgumentException("После удаления ИП нет частей ФИО");
+            }
+
+            StringBuilder fioBuilder = new StringBuilder();
+            fioBuilder.Append(parts[0]);
+            if (parts.Count > 1)
+            {
+                foreach (var part in parts.Skip(1))
+                {
+                    fioBuilder.AppendFormat(" {0}.", part[0]);
+                }
+            }
+
+            return fioBuilder.ToString();
+        }
+
+        string Родительный (string fieldValue)
+        {
+            var paradigm = declension.Parse(fieldValue);
+
+            return paradigm == null 
+                ? fieldValue // TODO: return a warning / error?
+                : paradigm.Genitive; 
+        }
+
+        string Пропись (string fieldValue)
+        {
+            return new ДенежнаяЕдиница 
+                       {
+                           ПолноеНаименованиеЦелойЧасти = "рубль",
+                           ПолноеНаименованиеДробнойЧасти = "копейка",
+                           СокращенноеНаименованиеЦелойЧасти = "руб.",
+                           СокращенноеНаименованиеДробнойЧасти = "коп."
+                       }
+                .СуммаПрописью (Decimal.Parse (fieldValue, CultureInfo.GetCultureInfo ("en-US")), numberSpelling.AsGeneric().DefaultCase());
+        }
+    }
+}
+\end{lstlisting}
+
+\begin{verbatim}
+Класс UnitParadigm
+\end{verbatim}
+
+\begin{lstlisting}
+using Morpher.WebService.V2.MorpherWebService;
+
+namespace Morpher.Russian
+{
+    class UnitParadigm : Paradigm
+    {
+        private readonly Forms forms;
+
+        public UnitParadigm (Forms forms) : base (forms.И)
+        {
+            this.forms = forms;
+        }
+
+        protected override Forms Forms
+        {
+            get { return forms; }
+        }
+
+        protected override string Locative
+        {
+            get { return forms.П; } // Совпадает с предложным.
+        }
+    }
+}
+\end{lstlisting}
+
+\begin{verbatim}
+Класс UnitTest
+\end{verbatim}
+
+\begin{lstlisting}
+namespace EasyDox.Morpher.UnitTests
+{
+    using System;
+    using System.Reflection;
+    using NUnit.Framework;
+
+    [TestFixture]
+    public class UnitTest
+    {
+        [Test]
+        public void ИП_Test() => Assert.AreEqual("Слепов С. Н.", MorpherFunctionPack.ФамилияИнициалы("Слепов Сергей Николаевич"));
+
+
+        [Test]
+        public void Dot_Test() => Assert.AreEqual("Слепов С.", MorpherFunctionPack.ФамилияИнициалы("Слепов С. ."));
+
+        [Test]
+        public void DoubleDot_Test() => Assert.AreEqual("Слепов С.", MorpherFunctionPack.ФамилияИнициалы("Слепов С.."));
+    }
+}
+\end{lstlisting}
